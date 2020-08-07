@@ -1,6 +1,6 @@
-
+id,first_name,last_name,role_id,manager_id
 1,Bob,Childs,2,1
 2,Frank,Little,1,NULL
 3,Raymond,Grey,4,3
 4,David,Green,3,2
-5,Ricky, Bobby,4,3
+5,Ricky, Bobby,5,3
