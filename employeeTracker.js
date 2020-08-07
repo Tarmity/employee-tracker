@@ -35,26 +35,73 @@ function generalQuestion() {
             ]
         })
 
-// Then promise with a switch statement to follow on for the inital Question
+        // Then promise with a switch statement to follow on for the inital Question
+        .then(function (answer) {
+            switch (answer.action) {
+                case "Add Employee":
+                    addEmployee();
+                    break;
 
+                case "Add Departments":
+                    addDepartments();
+                    break;
+
+                case "Add Role":
+                    addRole();
+                    break;
+
+                case "View Employees":
+                    viewEmployees();
+                    break;
+
+                case "View Departments":
+                    viewDepartments();
+                    break;
+
+                case "View Roles":
+                    viewRole();
+                    break;
+
+                case "Update Employee Roles":
+                    updateRoles();
+                    break;
+
+            }
+        })
 }
 
 
 // Function to Add Employee
+function addEmployee() {
 
+}
 
 // Function to Add Departments
+function addDepartments(){
 
+}
 
 // Function to Add Role
+function addRole(){
 
+}
 
 // Function to View Employees
+function viewEmployees(){
 
+}
 
 // Function to View Departments
+function viewDepartments(){
 
+}
 
 // Function to View Roles
+function viewRole(){
+
+}
 
 // Function to Update Employee Roles
+function updateRoles(){
+    
+}
