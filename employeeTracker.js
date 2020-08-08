@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
+    password: "Boston@29",
     database: "employee_DB"
 });
 
@@ -74,16 +74,17 @@ function init() {
 
 // Function to Add Employee
 function addEmployee() {
-    // // query the role table
-    // let roleQuery = `SELECT * FROM employee_db.role;`;
-    // // exe -- give you a list of roles
-    // connection.query(roleQuery, function (err, res) {
-    //     for (let i = 0; i < res.length; i++) {
-    //         console.log(res[i].title)
-    //         // for each role, grab the title, and turn them into an array (use map function )
-    //     }
+    // query the role table
+    let roleQuery = `SELECT * FROM employee_db.role;`;
+    // exe -- give you a list of roles
+    connection.query(roleQuery, function (err, res) {
+        for (let i = 0; i < res.length; i++) {
+            let title = res[i].title
+            //console.log(title)
+            // for each role, grab the title, and turn them into an array (use map function )
+        }
 
-    // })
+    })
     // once you have the title array, chuck it down there
 
     inquirer
