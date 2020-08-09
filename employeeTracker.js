@@ -221,7 +221,8 @@ function viewDepartments() {
 
 // // Function to View all Roles ===================================================================================
 function viewRole() {
-    connection.query((`SELECT * FROM role`), (err, res) => {
+    const sqlveiwRole = `SELECT * FROM role`;
+    connection.query(sqlveiwRole, function(err, res){
         if (err) throw err;
         console.table(res);
         process.exit();
