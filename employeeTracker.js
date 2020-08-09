@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "Boston@29",
+    password: "",
     database: "employee_DB"
 });
 
@@ -186,7 +186,8 @@ function addRole() {
             },
         ])
         .then(function (answer) {
-            connection.query(`INSERT INTO role (id, title, salary, department_id ) VALUES ( ?, ?, ?, ?)`, [answer.id, answer.title, answer.salary, answer.department_id], (err, res) => {
+            const sqlAddRole = `INSERT INTO role (id, title, salary, department_id ) VALUES ( ?, ?, ?, ?)`;
+            connection.query(sqlAddRole, [answer.id, answer.title, answer.salary, answer.department_id], (err, res) => {
                 if (err) throw err;
                 console.log("Successful");
                 init()
@@ -198,7 +199,7 @@ function addRole() {
 // Function to View all Employees =================================================================================
 function viewEmployees() {
     const sqlViewEmployee = `SELECT * FROM employee`;
-    connection.query(sqlViewEmployee, function (err, res) {
+    connection.query(sqlViewEmployee, (err, res) => {
         if (err) throw err;
         console.table(res);
         process.exit();
@@ -209,7 +210,7 @@ function viewEmployees() {
 // Function to View all Departments ===============================================================================
 function viewDepartments() {
     const sqlviewDepartment = `SELECT * FROM department`;
-    connection.query(sqlviewDepartment, function (err, res) {
+    connection.query(sqlviewDepartment, (err, res) => {
         if (err) throw err;
         console.table(res);
         process.exit();
@@ -223,7 +224,7 @@ function viewDepartments() {
 // // Function to View all Roles ===================================================================================
 function viewRole() {
     const sqlveiwRole = `SELECT * FROM role`;
-    connection.query(sqlveiwRole, function(err, res){
+    connection.query(sqlveiwRole, (err, res) => {
         if (err) throw err;
         console.table(res);
         process.exit();
