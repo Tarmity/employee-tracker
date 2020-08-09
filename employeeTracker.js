@@ -158,10 +158,40 @@ function addDepartments() {
 
 }
 
-// // Function to Add Role ====================================================================================
-// function addRole(){
+// // Function to Add Role =======================================================================================
+function addRole() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What is the new Deparments ID number? (please do not use an ID already taken) ",
+                name: "id"
+            },
+            {
+                type: "input",
+                message: "What is the Title for the new role going to be?",
+                name: "title"
+            },
+            {
+                type: "input",
+                message: "What is the salary for the new role?",
+                name: "salary"
+            },
+            {
+                type: "input",
+                message: "What is your new Department id number for the new role?",
+                name: "department_id"
+            },
+        ])
+        .then(function (answer) {
+            connection.query(`INSERT INTO role (id, title, salary, department_id ) VALUES ( ?, ?, ?, ?)`, [answer.id, answer.title, answer.salary, answer.department_id], (err, res) => {
+                if (err) throw err;
+                console.log("Successful");
+                init()
+            })
+        })
 
-// }
+}
 
 // Function to View all Employees =================================================================================
 function viewEmployees() {
