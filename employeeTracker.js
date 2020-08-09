@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
+    password: "Boston@29",
     database: "employee_DB"
 });
 
@@ -150,7 +150,8 @@ function addDepartments() {
             },
         ])
         .then(function (answer) {
-            connection.query(`INSERT INTO department (id, name) VALUES ( ? , ?)`, [answer.id, answer.name], (err, res) => {
+            const sqlAddDepartment = `INSERT INTO department (id, name) VALUES ( ? , ?)`;
+            connection.query(sqlAddDepartment, [answer.id, answer.name], (err, res) => {
                 if (err) throw err;
                 console.log("Successful");
                 init()
