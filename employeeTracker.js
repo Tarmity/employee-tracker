@@ -27,13 +27,14 @@ function init() {
             type: "list",
             message: "What would you like to do?",
             choices: [
-                "View Employees", //Function Done
-                "View Departments", //Function Done
-                "View Roles",   //Function Done
+                "View Employees", 
+                "View Departments", 
+                "View Roles",   
                 "Add Employee",
-                "Add Departments", //Function Done
-                "Add Role", //Function Done
-                "Update Employee Roles"
+                "Add Departments", 
+                "Add Role", 
+                "Update Employee Roles",
+                "Exit Application" 
             ]
         })
 
@@ -66,6 +67,10 @@ function init() {
 
                 case "Update Employee Roles":
                     updateRoles();
+                    break;
+
+                case "Exit Application":
+                    process.exit(); //Function Done
                     break;
 
             }
@@ -202,7 +207,7 @@ function viewEmployees() {
     connection.query(sqlViewEmployee, (err, res) => {
         if (err) throw err;
         console.table(res);
-        process.exit();
+        init();
     })
 }
 
@@ -213,7 +218,7 @@ function viewDepartments() {
     connection.query(sqlviewDepartment, (err, res) => {
         if (err) throw err;
         console.table(res);
-        process.exit();
+        init();
     })
 
 }
@@ -227,7 +232,7 @@ function viewRole() {
     connection.query(sqlveiwRole, (err, res) => {
         if (err) throw err;
         console.table(res);
-        process.exit();
+        init();
     })
 
 }
