@@ -1,10 +1,10 @@
-// Varibles =====================================================
+// Varibles =================================================================================
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const fs = require("fs");
 
 
-// Establish connection with MySQL ==============================
+// Establish connection with MySQL ===========================================================
 const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
@@ -19,7 +19,7 @@ connection.connect(function (err) {
     init();
 })
 
-// Function that asks the inital Question =======================
+// Function that asks the inital Question ====================================================
 function init() {
     inquirer
         .prompt({
@@ -27,12 +27,12 @@ function init() {
             type: "list",
             message: "What would you like to do?",
             choices: [
+                "View Employees", //Function Done
+                "View Departments", //Function Done
+                "View Roles",   //Function Done
                 "Add Employee",
                 "Add Departments",
                 "Add Role",
-                "View Employees",
-                "View Departments",
-                "View Roles",
                 "Update Employee Roles"
             ]
         })
@@ -72,7 +72,7 @@ function init() {
         })
 }
 
-// Function to Add Employee
+// Function to Add Employee ======================================================================
 function addEmployee() {
     // // query the role table
     // let roleQuery = `SELECT * FROM employee_db.role;`;
@@ -93,8 +93,8 @@ function addEmployee() {
     inquirer
         .prompt([
             {
-                type:"input",
-                message: "Please enter new employee's ID number"          
+                type: "input",
+                message: "Please enter new employee's ID number"
             },
             {
                 type: "input",
@@ -120,54 +120,54 @@ function addEmployee() {
             },
         ]);
 
-//         .then(function (answer)  {
-//     const role = answer.role;
+    //         .then(function (answer)  {
+    //     const role = answer.role;
 
-//     // query for the id of the selected role
-//     let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
+    //     // query for the id of the selected role
+    //     let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
 
-//     // exe the query
+    //     // exe the query
 
-//     // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
+    //     // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
 
-//     let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES ('${answer.first_name}', '${answer.last.name}', '', '3');`
+    //     let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES ('${answer.first_name}', '${answer.last.name}', '', '3');`
 
-//     })
+    //     })
 }
 
-    
 
-// // Function to Add Departments
+
+// // Function to Add Departments =============================================================================
 // function addDepartments(){
 
 // }
 
-// // Function to Add Role
+// // Function to Add Role ====================================================================================
 // function addRole(){
 
 // }
 
-// Function to View Employees
-function viewEmployees(){
+// Function to View Employees =================================================================================
+function viewEmployees() {
     connection.query((`SELECT * FROM employee`), (err, res) => {
         if (err) throw err;
         console.table(res);
         process.exit();
     })
- }
+}
 
-// Function to View Departments
-function viewDepartments(){
-        connection.query((`SELECT * FROM department`), (err, res) => {
-            if (err) throw err;
-            console.table(res);
-            process.exit();
-        })
+// Function to View Departments ===============================================================================
+function viewDepartments() {
+    connection.query((`SELECT * FROM department`), (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        process.exit();
+    })
 
 }
 
-// // Function to View Roles
-function viewRole(){
+// // Function to View Roles ===================================================================================
+function viewRole() {
     connection.query((`SELECT * FROM role`), (err, res) => {
         if (err) throw err;
         console.table(res);
@@ -176,7 +176,7 @@ function viewRole(){
 
 }
 
-// // Function to Update Employee Roles
+// // Function to Update Employee Roles ========================================================================
 // function updateRoles(){
 
 // }
