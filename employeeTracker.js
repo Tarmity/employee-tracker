@@ -45,23 +45,23 @@ function init() {
                     break;
 
                 case "Add Departments":
-                    addDepartments();
+                    addDepartments(); //Function Done
                     break;
 
                 case "Add Role":
-                    addRole();
+                    addRole(); //Function Done
                     break;
 
                 case "View Employees":
-                    viewEmployees();
+                    viewEmployees(); //Function Done
                     break;
 
                 case "View Departments":
-                    viewDepartments();
+                    viewDepartments(); //Function Done
                     break;
 
                 case "View Roles":
-                    viewRole();
+                    viewRole(); //Function Done
                     break;
 
                 case "Update Employee Roles":
@@ -117,7 +117,7 @@ function addEmployee() {
         ])
 
         .then(function (answer) {
-            
+
             // const role = answer.role;
 
             // // query for the id of the selected role
@@ -196,7 +196,8 @@ function addRole() {
 
 // Function to View all Employees =================================================================================
 function viewEmployees() {
-    connection.query((`SELECT * FROM employee`), (err, res) => {
+    const sqlViewEmployee = "SELECT * FROM employee";
+    connection.query(sqlViewEmployee, function (err, res) {
         if (err) throw err;
         console.table(res);
         process.exit();
