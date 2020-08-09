@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "Boston@29",
+    password: "",
     database: "employee_DB"
 });
 
@@ -32,7 +32,7 @@ function init() {
                 "View Roles",   //Function Done
                 "Add Employee",
                 "Add Departments", //Function Done
-                "Add Role",
+                "Add Role", //Function Done
                 "Update Employee Roles"
             ]
         })
@@ -117,16 +117,17 @@ function addEmployee() {
         ])
 
         .then(function (answer) {
-            const role = answer.role;
+            
+            // const role = answer.role;
 
-            // query for the id of the selected role
-            let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
+            // // query for the id of the selected role
+            // let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
 
-            // exe the query
+            // // exe the query
 
-            // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
+            // // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
 
-            let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES ('${answer.first_name}', '${answer.last.name}', '${role}', '3');`
+            // let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES ('${answer.first_name}', '${answer.last.name}', '${role}', '3');`
 
         })
 }
