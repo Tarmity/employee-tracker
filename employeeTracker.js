@@ -9,13 +9,13 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
+    password: "Boston@29",
     database: "employee_DB"
 });
 
-connection.connect(function (err) {
+connection.connect(err => {
     if (err) throw err;
-    //console.log("successful");
+    console.log("Connected as ID " + connection.threadId);
     init();
 })
 
@@ -31,7 +31,7 @@ function init() {
                 "View Departments", //Function Done
                 "View Roles",   //Function Done
                 "Add Employee",
-                "Add Departments",
+                "Add Departments", //Function Done
                 "Add Role",
                 "Update Employee Roles"
             ]
@@ -94,10 +94,6 @@ function addEmployee() {
         .prompt([
             {
                 type: "input",
-                message: "Please enter new employee's ID number"
-            },
-            {
-                type: "input",
                 message: "please enter new employee's first name",
                 name: "first_name"
             },
@@ -118,36 +114,56 @@ function addEmployee() {
                     "Junior Full Stack Developer"   // need this to be a title Array 
                 ]
             },
-        ]);
+        ])
 
-    //         .then(function (answer)  {
-    //     const role = answer.role;
+        .then(function (answer) {
+            const role = answer.role;
 
-    //     // query for the id of the selected role
-    //     let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
+            // query for the id of the selected role
+            let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
 
-    //     // exe the query
+            // exe the query
 
-    //     // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
+            // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
 
-    //     let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES ('${answer.first_name}', '${answer.last.name}', '', '3');`
+            let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES ('${answer.first_name}', '${answer.last.name}', '${role}', '3');`
 
-    //     })
+        })
 }
 
 
 
 // // Function to Add Departments =============================================================================
-// function addDepartments(){
+function addDepartments() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What is the new Deparments ID number? (please do not use an ID already taken) ",
+                name: "id"
+            },
+            {
+                type: "input",
+                message: "What is your new Department called?",
+                name: "name"
+            },
+        ])
+        .then(function (answer) {
+            connection.query(`INSERT INTO department (id, name) VALUES ( ? , ?)`, [answer.id, answer.name], (err, res) => {
+                if (err) throw err;
+                console.log("Successful");
+                init()
+            })
+        })
 
-// }
+}
 
 // // Function to Add Role ====================================================================================
 // function addRole(){
 
 // }
 
-// Function to View Employees =================================================================================
+// Function to View all Employees =================================================================================
 function viewEmployees() {
     connection.query((`SELECT * FROM employee`), (err, res) => {
         if (err) throw err;
@@ -156,7 +172,8 @@ function viewEmployees() {
     })
 }
 
-// Function to View Departments ===============================================================================
+
+// Function to View all Departments ===============================================================================
 function viewDepartments() {
     connection.query((`SELECT * FROM department`), (err, res) => {
         if (err) throw err;
@@ -165,8 +182,11 @@ function viewDepartments() {
     })
 
 }
+// Function to view by individual Departments
 
-// // Function to View Roles ===================================================================================
+
+
+// // Function to View all Roles ===================================================================================
 function viewRole() {
     connection.query((`SELECT * FROM role`), (err, res) => {
         if (err) throw err;
@@ -176,7 +196,11 @@ function viewRole() {
 
 }
 
-// // Function to Update Employee Roles ========================================================================
+//Function to Veiw by individual roles ==============================================================================
+
+
+
+// // Function to Update Employee Roles =============================================================================
 // function updateRoles(){
 
 // }
