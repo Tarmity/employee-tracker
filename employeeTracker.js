@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "Boston@29",
+    password: "",
     database: "employee_DB"
 });
 
@@ -167,9 +167,14 @@ function viewDepartments(){
 }
 
 // // Function to View Roles
-// function viewRole(){
+function viewRole(){
+    connection.query((`SELECT * FROM role`), (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        process.exit();
+    })
 
-// }
+}
 
 // // Function to Update Employee Roles
 // function updateRoles(){
