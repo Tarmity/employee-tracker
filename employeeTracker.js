@@ -196,7 +196,7 @@ function addRole() {
 
 // Function to View all Employees =================================================================================
 function viewEmployees() {
-    const sqlViewEmployee = "SELECT * FROM employee";
+    const sqlViewEmployee = `SELECT * FROM employee`;
     connection.query(sqlViewEmployee, function (err, res) {
         if (err) throw err;
         console.table(res);
@@ -207,7 +207,8 @@ function viewEmployees() {
 
 // Function to View all Departments ===============================================================================
 function viewDepartments() {
-    connection.query((`SELECT * FROM department`), (err, res) => {
+    const sqlviewDepartment = `SELECT * FROM department`;
+    connection.query(sqlviewDepartment, function (err, res) {
         if (err) throw err;
         console.table(res);
         process.exit();
