@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
+    password: "Boston@29",
     database: "employee_DB"
 });
 
@@ -74,29 +74,36 @@ function init() {
 
 // Function to Add Employee
 function addEmployee() {
-    // query the role table
-    let roleQuery = `SELECT * FROM employee_db.role;`;
-    // exe -- give you a list of roles
-    connection.query(roleQuery, function (err, res) {
-        for (let i = 0; i < res.length; i++) {
-            let title = res[i].title
-            //console.log(title)
-            // for each role, grab the title, and turn them into an array (use map function )
-        }
+    // // query the role table
+    // let roleQuery = `SELECT * FROM employee_db.role;`;
+    // // exe -- give you a list of roles
+    // connection.query(roleQuery, function (err, res) {
+    //     for (let i = 0; i < res.length; i++) {
+    //         let title = res[i].title
+    //         function getArray(item){
+    //             let jobTitle = [title].join(" ");
+    //             let newTitle = jobtitle.map(getArray);
+    //         }
+    //         // for each role, grab the title, and turn them into an array (use map function )
+    //     }
 
-    })
+    // })
     // once you have the title array, chuck it down there
 
     inquirer
         .prompt([
             {
+                type:"input",
+                message: "Please enter new employee's ID number"          
+            },
+            {
                 type: "input",
-                message: "please enter employee's first name",
+                message: "please enter new employee's first name",
                 name: "first_name"
             },
             {
                 type: "input",
-                message: "Please Enter employee's last name",
+                message: "Please Enter new employee's last name",
                 name: "last_name"
             },
             {
@@ -110,23 +117,23 @@ function addEmployee() {
                     "Full Stack Developer",
                     "Junior Full Stack Developer"   // need this to be a title Array 
                 ]
-            }
-        ])
+            },
+        ]);
 
+        .then(function (answer)  {
+    const role = answer.role;
+
+    // query for the id of the selected role
+    let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
+
+    // exe the query
+
+    // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
+
+    let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES ('${answer.first_name}', '${answer.last.name}', '', '3');`
+
+    })
 }
-// .then(function (answer) {
-//     const role = answer.role;
-
-//     // query for the id of the selected role
-//     let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
-
-//     // exe the query
-
-//     // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
-
-//     let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES ('${answer.first_name}', '${answer.last.name}', '4', '3');`
-
-// }
 
 
 
