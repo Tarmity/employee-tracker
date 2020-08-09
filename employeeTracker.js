@@ -120,22 +120,22 @@ function addEmployee() {
             },
         ]);
 
-        .then(function (answer)  {
-    const role = answer.role;
+//         .then(function (answer)  {
+//     const role = answer.role;
 
-    // query for the id of the selected role
-    let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
+//     // query for the id of the selected role
+//     let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
 
-    // exe the query
+//     // exe the query
 
-    // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
+//     // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
 
-    let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES ('${answer.first_name}', '${answer.last.name}', '', '3');`
+//     let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES ('${answer.first_name}', '${answer.last.name}', '', '3');`
 
-    })
+//     })
 }
 
-
+    
 
 // // Function to Add Departments
 // function addDepartments(){
@@ -147,15 +147,20 @@ function addEmployee() {
 
 // }
 
-// // Function to View Employees
+// Function to View Employees
 // function viewEmployees(){
-
+    
 // }
 
-// // Function to View Departments
-// function viewDepartments(){
+// Function to View Departments
+function viewDepartments(){
+        connection.query((`SELECT * FROM department`), (err, res) => {
+            if (err) throw err;
+            console.table(res);
+            process.exit();
+        })
 
-// }
+}
 
 // // Function to View Roles
 // function viewRole(){
