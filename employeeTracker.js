@@ -148,9 +148,13 @@ function addEmployee() {
 // }
 
 // Function to View Employees
-// function viewEmployees(){
-    
-// }
+function viewEmployees(){
+    connection.query((`SELECT * FROM employee`), (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        process.exit();
+    })
+ }
 
 // Function to View Departments
 function viewDepartments(){
