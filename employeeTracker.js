@@ -30,6 +30,7 @@ function init() {
             type: "list",
             message: "What would you like to do?",
             choices: [
+                "Veiw All staff/Roles and Departments",
                 "Veiw Employee/Company Details",
                 "Add Employee/Company Information",
                 "Update Employee Roles",
@@ -41,16 +42,20 @@ function init() {
         // Then promise with a switch statement to follow on for the inital Question
         .then(function (answer) {
             switch (answer.action) {
+                case "Veiw All staff/Roles and Departments":
+                    joinedTables(); // Function Done
+                    break;
+
                 case "Veiw Employee/Company Details":
-                    viewEmployeeDetails();
+                    viewEmployeeDetails(); // Function Done
                     break;
 
                 case "Add Employee/Company Information":
-                    addInformation();
+                    addInformation(); // Function Done
                     break;
 
                 case "Update Employee Roles":
-                    updateRoles();
+                    updateRoles(); // Function Done
                     break;
 
                 case "Delete Employee/Company Details":
@@ -310,11 +315,35 @@ function deleteDepartments() {
 
 // Function to delete Role =========================================================================================
 function deleteRole() {
-    const sqlDelRole = `DELETE FROM role WHERE id = ?`;
+    // query the role table
+    let roleQuery = `SELECT * FROM employee_db.role;`;
+    // exe -- give you a list of roles
+    let roleTitles = [];
+    connection.query(roleQuery, function (err, res) {
+        for (let i = 0; i < res.length; i++) {
+            roleTitles.push(res[i].title);
+        }
+        // console.log(roleTitles)
+    });
+    inquirer
+        .prompt({
+
+            name: "title",
+            type: "list",
+            message: "What role is the new employee doing?",
+            choices: roleTitles,
+        })
+        .then(function (answer) {
+            const sqlDelRole = `DELETE FROM role WHERE title = ?`;
+            connection.query(sqlDelRole, [answer.title], (err, res) => {
+                if (err) throw err;
+                console.log("Successfull")
+                init()
+            })
+        })
+
 
 }
-
-
 
 // Function to View all Employees =================================================================================
 function viewEmployees() {
@@ -371,7 +400,7 @@ function updateRoles() {
         })
 }
 
-async function printAll() {
+async function joinedTables() {
     let query = `
             SELECT employee.id, first_name, last_name, title, salary, name AS department, manager_id FROM employee 
             LEFT JOIN role 
