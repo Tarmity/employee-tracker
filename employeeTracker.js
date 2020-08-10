@@ -269,11 +269,11 @@ function deleteEmployeeDetails() {
                     break;
 
                 case "Delete Department":
-                    deleteDepartments(); 
+                    deleteDepartments();
                     break;
 
                 case "Delete Role":
-                    deleteRole(); 
+                    deleteRole();
                     break;
 
                 case "Return to main MENU":
@@ -286,23 +286,31 @@ function deleteEmployeeDetails() {
 
 // Function to delete Employee ====================================================================================
 function deleteEmployee() {
-    const sqlDeleteEmp = `DELETE FROM employee WHERE id = ?`;
-    connection.query (sqlDeleteEmp, [answer.id], (err, res) => {
-        if (err) throw err;
-        console.log("Successfull")
-        init()
-    })
+    inquirer
+        .prompt({
+            name: "id",
+            type: "input",
+            message: "Please enter the ID number of the employee you would like to delete"
+        })
+        .then(function (answer) {
+            const sqlDeleteEmp = `DELETE FROM employee WHERE id = ?`;
+            connection.query(sqlDeleteEmp, [answer.id], (err, res) => {
+                if (err) throw err;
+                console.log("Successfull")
+                init()
+            })
+        })
 }
 
 // Function to delete Department====================================================================================
-function deleteDepartments(){
+function deleteDepartments() {
     const sqlDeleteDepart = `DELETE FROM department WHERE id = ?`;
 
 }
 
 // Function to delete Role =========================================================================================
-function deleteRole(){
-    const sqlDelRole =  `DELETE FROM role WHERE id = ?`;
+function deleteRole() {
+    const sqlDelRole = `DELETE FROM role WHERE id = ?`;
 
 }
 
