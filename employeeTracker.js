@@ -286,13 +286,21 @@ function deleteEmployeeDetails() {
 }
 
 // Function to delete Employee ====================================================================================
-
+function deleteEmployee() {
+    const sqlDeleteEmp = `DELETE FROM `employee` WHERE (`id` = '5')`;
+}
 
 // Function to delete Department====================================================================================
+function deleteDepartments(){
+    const sqlDeleteDepart = `DELETE FROM `employee_db`.`department` WHERE (`id` = '4')`;
 
+}
 
 // Function to delete Role =========================================================================================
+function deleteRole(){
+    const sqlDelRole =  `DELETE FROM `employee_db`.`role` WHERE (`id` = '4')`;
 
+}
 
 
 
