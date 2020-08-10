@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "Boston@29",
+    password: "",
     database: "employee_DB",
 });
 
@@ -67,9 +67,9 @@ function init() {
                     break;
             }
         });
-}
+};
 
-// Function to View Employee Details =============================================================How to get rid of the index coloum on the table.
+// Function to View Employee Details ============================================================= How to get rid of the index coloum on the table.
 
 function viewEmployeeDetails() {
     inquirer
@@ -103,7 +103,7 @@ function viewEmployeeDetails() {
                     break;
             }
         });
-}
+};
 
 // Function to add Employee/Company Information ==================================================
 
@@ -139,7 +139,7 @@ function addInformation() {
                     break;
             }
         });
-}
+};
 
 // Function to Add Employee ====================================================================== 
 function addEmployee() {
@@ -149,17 +149,17 @@ function addEmployee() {
     let roleTitles = [];
     connection.query(roleQuery, function (err, res) {
         for (let i = 0; i < res.length; i++) {
-            roleTitles.push({name: res[i].title, value:res[i].id} );
+            roleTitles.push({ name: res[i].title, value: res[i].id });
         }
 
-    let  mangerQuery = 'SELECT * FROM employee_db.employee;';
-    let emplManager = [];
-    connection.query(mangerQuery, function (err, res) {
-        for (let i = 0; i < res.length; i++){
-            emplManager.push({name: res[i].first_name, value: res[i].id});
-        }
-    
-    })
+        let mangerQuery = 'SELECT * FROM employee_db.employee;';
+        let emplManager = [];
+        connection.query(mangerQuery, function (err, res) {
+            for (let i = 0; i < res.length; i++) {
+                emplManager.push({ name: res[i].first_name, value: res[i].id });
+            }
+
+        })
         // console.log(roleTitles)
         inquirer
             .prompt([
@@ -194,10 +194,10 @@ function addEmployee() {
                     console.log("SuccessFul!");
                     init()
                 })
-                
+
             });
     });
-}
+};
 
 // // Function to Add Departments =============================================================================
 function addDepartments() {
@@ -227,7 +227,7 @@ function addDepartments() {
                 }
             );
         });
-}
+};
 
 // // Function to Add Role =======================================================================================
 function addRole() {
@@ -266,7 +266,7 @@ function addRole() {
                 }
             );
         });
-}
+};
 
 // Function to  delete Employees and company Details ==============================================================
 function deleteEmployeeDetails() {
@@ -301,8 +301,7 @@ function deleteEmployeeDetails() {
                     break;
             }
         });
-
-}
+};
 
 // Function to delete Employee =============================================================================================
 function deleteEmployee() {
@@ -320,7 +319,7 @@ function deleteEmployee() {
                 joinedTables()
             })
         })
-}
+};
 
 // Function to delete Department============================================================================================
 function deleteDepartments() {
@@ -330,26 +329,26 @@ function deleteDepartments() {
     let departName = [];
     connection.query(departQuery, function (err, res) {
         for (let i = 0; i < res.length; i++) {
-            departName.push({name: res[i].name, value: res[i].id});
+            departName.push({ name: res[i].name, value: res[i].id });
         }
         inquirer
-        .prompt({
-            name: "name",
-            type: "list",
-            message: "What department would you like to delete?",
-            choices: departName,
-        })
-        .then(function (answer) {
-            console.log(answer)
-            const sqlDeleteDepart = `DELETE FROM department WHERE id = ?`;
-            connection.query(sqlDeleteDepart, [answer.name], (err, res) => {
-                if (err) throw err;
-                console.log("Successful!")
-                joinedTables()
+            .prompt({
+                name: "name",
+                type: "list",
+                message: "What department would you like to delete?",
+                choices: departName,
             })
-        })
-    }) 
-}
+            .then(function (answer) {
+                console.log(answer)
+                const sqlDeleteDepart = `DELETE FROM department WHERE id = ?`;
+                connection.query(sqlDeleteDepart, [answer.name], (err, res) => {
+                    if (err) throw err;
+                    console.log("Successful!")
+                    joinedTables()
+                })
+            })
+    })
+};
 
 // Function to delete Role ==================================================================================================
 function deleteRole() {
@@ -359,30 +358,27 @@ function deleteRole() {
     let roleTitles = [];
     connection.query(roleQuery, function (err, res) {
         for (let i = 0; i < res.length; i++) {
-            roleTitles.push({name:res[i].title, value: res[i].id});
+            roleTitles.push({ name: res[i].title, value: res[i].id });
         }
         // console.log(roleTitles)
         inquirer
-        .prompt({
+            .prompt({
 
-            name: "title",
-            type: "list",
-            message: "What role would you like to delete?",
-            choices: roleTitles,
-        })
-        .then(function (answer) {
-            const sqlDelRole = `DELETE FROM role WHERE id = ?`; //==========================================================
-            connection.query(sqlDelRole, [answer.title], (err, res) => {
-                if (err) throw err;
-                console.log("Successfull")
-                joinedTables()
+                name: "title",
+                type: "list",
+                message: "What role would you like to delete?",
+                choices: roleTitles,
             })
-        })
+            .then(function (answer) {
+                const sqlDelRole = `DELETE FROM role WHERE id = ?`; 
+                connection.query(sqlDelRole, [answer.title], (err, res) => {
+                    if (err) throw err;
+                    console.log("Successfull")
+                    joinedTables()
+                })
+            })
     });
-    
-
-
-}
+};
 
 // Function to View all Employees ==========================================================================================
 function viewEmployees() {
@@ -392,7 +388,7 @@ function viewEmployees() {
         console.table(res);
         init();
     });
-}
+};
 
 // Function to View all Departments ========================================================================================
 function viewDepartments() {
@@ -402,7 +398,7 @@ function viewDepartments() {
         console.table(res);
         init();
     });
-}
+};
 
 // // Function to View all Roles ============================================================================================
 function viewRole() {
@@ -412,7 +408,7 @@ function viewRole() {
         console.table(res);
         init();
     });
-}
+};
 
 // // Function to Update Employee Roles =====================================================================================
 function updateRoles() {
@@ -434,11 +430,12 @@ function updateRoles() {
             connection.query(sqlUpdaterole, [answer.role_id, answer.id], (err, res) => {
                 if (err) throw err;
                 console.log("Successful!");
-                init();
+                joinedTables();
             });
         })
-}
+};
 
+// Function to Join all the Tables together ================================================================================
 async function joinedTables() {
     let query = `
             SELECT employee.id, first_name, last_name, title, salary, name AS department, manager_id FROM employee 
@@ -452,4 +449,4 @@ async function joinedTables() {
         console.table(res);
         init();
     })
-}
+};
