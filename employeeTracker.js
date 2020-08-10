@@ -141,7 +141,7 @@ function addInformation() {
         });
 }
 
-// Function to Add Employee ====================================================================== Not sure how to auto add the manager ID 
+// Function to Add Employee ====================================================================== 
 function addEmployee() {
     // query the role table
     let roleQuery = `SELECT * FROM employee_db.role;`;
@@ -156,7 +156,7 @@ function addEmployee() {
     let emplManager = [];
     connection.query(mangerQuery, function (err, res) {
         for (let i = 0; i < res.length; i++){
-            emplManager.push({name: res[i].first_name, value: res[i].last_name });
+            emplManager.push({name: res[i].first_name, value: res[i].id});
         }
     
     })
@@ -359,11 +359,10 @@ function deleteRole() {
     let roleTitles = [];
     connection.query(roleQuery, function (err, res) {
         for (let i = 0; i < res.length; i++) {
-            roleTitles.push(res[i].title);
+            roleTitles.push({name:res[i].title, value: res[i].id});
         }
         // console.log(roleTitles)
-    });
-    inquirer
+        inquirer
         .prompt({
 
             name: "title",
@@ -372,18 +371,20 @@ function deleteRole() {
             choices: roleTitles,
         })
         .then(function (answer) {
-            const sqlDelRole = `DELETE FROM role WHERE id = ?`; //======================================= Not sure How to delete tilte. Need to turn roleTitle into the number to delete the row 
+            const sqlDelRole = `DELETE FROM role WHERE id = ?`; //==========================================================
             connection.query(sqlDelRole, [answer.title], (err, res) => {
                 if (err) throw err;
                 console.log("Successfull")
                 joinedTables()
             })
         })
+    });
+    
 
 
 }
 
-// Function to View all Employees =================================================================================
+// Function to View all Employees ==========================================================================================
 function viewEmployees() {
     const sqlViewEmployee = `SELECT id, first_name, last_name FROM employee_db.employee`;
     connection.query(sqlViewEmployee, (err, res) => {
@@ -393,7 +394,7 @@ function viewEmployees() {
     });
 }
 
-// Function to View all Departments ===============================================================================
+// Function to View all Departments ========================================================================================
 function viewDepartments() {
     const sqlviewDepartment = `SELECT * FROM department`;
     connection.query(sqlviewDepartment, (err, res) => {
@@ -403,7 +404,7 @@ function viewDepartments() {
     });
 }
 
-// // Function to View all Roles ===================================================================================
+// // Function to View all Roles ============================================================================================
 function viewRole() {
     const sqlveiwRole = `SELECT * FROM role`;
     connection.query(sqlveiwRole, (err, res) => {
@@ -413,7 +414,7 @@ function viewRole() {
     });
 }
 
-// // Function to Update Employee Roles =============================================================================
+// // Function to Update Employee Roles =====================================================================================
 function updateRoles() {
     inquirer
         .prompt([
