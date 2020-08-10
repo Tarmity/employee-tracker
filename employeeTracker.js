@@ -2,6 +2,8 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const fs = require("fs");
+const chalk = require('chalk');
+
 
 // Establish connection with MySQL ===========================================================
 const connection = mysql.createConnection({
@@ -15,8 +17,10 @@ const connection = mysql.createConnection({
 connection.connect((err) => {
     if (err) throw err;
     console.log("Connected as ID " + connection.threadId);
+    console.log(chalk.blue('Hello world!'));
     init();
 });
+
 
 // Function that asks the inital Question ====================================================
 function init() {
@@ -29,6 +33,7 @@ function init() {
                 "Veiw Employee/Company Details",
                 "Add Employee/Company Information",
                 "Update Employee Roles",
+                "Delete Employee/Company Details",
                 "Exit Application",
             ],
         })
@@ -46,6 +51,10 @@ function init() {
 
                 case "Update Employee Roles":
                     updateRoles();
+                    break;
+
+                case "Delete Employee/Company Details":
+                    deleteEmployeeDetails();
                     break;
 
                 case "Exit Application":
@@ -239,6 +248,44 @@ function addRole() {
             );
         });
 }
+
+// Function to  delete Employees and company Details ==============================================================
+function deleteEmployeeDetails() {
+    inquirer
+        .prompt({
+            name: "action",
+            type: "list",
+            message: "Please select what Information you would like to delete",
+            choices: [
+                "Delete Employee",
+                "Delete Department",
+                "Delete Role",
+                "Return to main MENU",
+            ],
+        })
+        .then(function (answer) {
+            switch (answer.action) {
+                case "Delete Employee":
+                    deleteEmployee();
+                    break;
+
+                case "Delete Department":
+                    deleteDepartments(); 
+                    break;
+
+                case "Delete Role":
+                    deleteRole(); 
+                    break;
+
+                case "Return to main MENU":
+                    init(); //Function Done
+                    break;
+            }
+        });
+
+}
+
+// Function to delete Employee
 
 // Function to View all Employees =================================================================================
 function viewEmployees() {

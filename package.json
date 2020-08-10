@@ -17,7 +17,11 @@
   },
   "homepage": "https://github.com/Tarmity/employee-tracker#readme",
   "dependencies": {
+    "art": "^0.10.3",
+    "ascii": "^1.0.0",
+    "chalk": "^4.1.0",
     "console.table": "^0.10.0",
+    "font": "0.0.4",
     "inquirer": "^7.3.3",
     "mysql": "^2.18.1"
   }
