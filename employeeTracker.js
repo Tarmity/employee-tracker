@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
+    password: "Boston@29",
     database: "employee_DB",
 });
 
@@ -141,7 +141,7 @@ function addInformation() {
         });
 }
 
-// Function to Add Employee ====================================================================== Not sure how to auto add the manger ID 
+// Function to Add Employee ====================================================================== Not sure how to auto add the manager ID 
 function addEmployee() {
     // query the role table
     let roleQuery = `SELECT * FROM employee_db.role;`;
@@ -151,6 +151,15 @@ function addEmployee() {
         for (let i = 0; i < res.length; i++) {
             roleTitles.push({name: res[i].title, value:res[i].id} );
         }
+
+    let  mangerQuery = 'SELECT * FROM employee_db.employee;';
+    let emplManager = [];
+    connection.query(mangerQuery, function (err, res) {
+        for (let i = 0; i < res.length; i++){
+            emplManager.push({name: res[i].first_name, value: res[i].last_name });
+        }
+    
+    })
         // console.log(roleTitles)
         inquirer
             .prompt([
@@ -170,11 +179,17 @@ function addEmployee() {
                     message: "What role is the new employee doing?",
                     choices: roleTitles,
                 },
+                {
+                    name: "manager",
+                    type: "list",
+                    message: "Who is the new Employee's Manager?",
+                    choices: emplManager,
+                }
             ])
             .then(function (answer) {
                 //console.log(answer)
                 const sqlAddEmployee = `INSERT INTO employee (first_name, last_name, role_id, manager_id)VALUES(?, ?, ?, ?)`;
-                connection.query(sqlAddEmployee, [answer.first_name, answer.last.name, answer.role, 3], (err, res) => {
+                connection.query(sqlAddEmployee, [answer.first_name, answer.last.name, answer.role, answer.manager], (err, res) => {
                     if (err) throw err;
                     console.log("SuccessFul!");
                     init()
@@ -289,7 +304,7 @@ function deleteEmployeeDetails() {
 
 }
 
-// Function to delete Employee ====================================================================================
+// Function to delete Employee =============================================================================================
 function deleteEmployee() {
     inquirer
         .prompt({
@@ -336,7 +351,7 @@ function deleteDepartments() {
     }) 
 }
 
-// Function to delete Role =========================================================================================
+// Function to delete Role ==================================================================================================
 function deleteRole() {
     // query the role table
     let roleQuery = `SELECT * FROM employee_db.role;`;
