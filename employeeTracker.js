@@ -239,8 +239,7 @@ function addRole() {
             const sqlAddRole = `INSERT INTO role (id, title, salary, department_id ) VALUES ( ?, ?, ?, ?)`;
             connection.query(
                 sqlAddRole,
-                [answer.id, answer.title, answer.salary, answer.department_id],
-                (err, res) => {
+                [answer.id, answer.title, answer.salary, answer.department_id], (err, res) => {
                     if (err) throw err;
                     console.log("Successful");
                     init();
@@ -287,18 +286,23 @@ function deleteEmployeeDetails() {
 
 // Function to delete Employee ====================================================================================
 function deleteEmployee() {
-    const sqlDeleteEmp = `DELETE FROM `employee` WHERE (`id` = '5')`;
+    const sqlDeleteEmp = `DELETE FROM employee WHERE id = ?`;
+    connection.query (sqlDeleteEmp, [answer.id], (err, res) => {
+        if (err) throw err;
+        console.log("Successfull")
+        init()
+    })
 }
 
 // Function to delete Department====================================================================================
 function deleteDepartments(){
-    const sqlDeleteDepart = `DELETE FROM `employee_db`.`department` WHERE (`id` = '4')`;
+    const sqlDeleteDepart = `DELETE FROM department WHERE id = ?`;
 
 }
 
 // Function to delete Role =========================================================================================
 function deleteRole(){
-    const sqlDelRole =  `DELETE FROM `employee_db`.`role` WHERE (`id` = '4')`;
+    const sqlDelRole =  `DELETE FROM role WHERE id = ?`;
 
 }
 
