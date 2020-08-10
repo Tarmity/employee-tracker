@@ -141,7 +141,7 @@ function addInformation() {
         });
 }
 
-// Function to Add Employee ======================================================================
+// Function to Add Employee ====================================================================== Not sure how to convert title inot a number / and have it auto add the manger ID 
 function addEmployee() {
     // query the role table
     let roleQuery = `SELECT * FROM employee_db.role;`;
@@ -307,7 +307,7 @@ function deleteEmployee() {
         })
 }
 
-// Function to delete Department====================================================================================
+// Function to delete Department============================================================================================Not sure how to convert name into number to delete row
 function deleteDepartments() {
     // query the Departments table
     let departQuery = `SELECT * FROM employee_db.department;`
