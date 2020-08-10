@@ -10,14 +10,14 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
+    password: "Boston@29",
     database: "employee_DB",
 });
 
 connection.connect((err) => {
     if (err) throw err;
     console.log("Connected as ID " + connection.threadId);
-    console.log(chalk.blue('Hello world!'));
+    console.log(chalk.bgBlueBright("Employee Tracker"));
     init();
 });
 
@@ -69,7 +69,7 @@ function init() {
         });
 }
 
-// Function to View Employee Details =============================================================
+// Function to View Employee Details =============================================================How to get rid of the index coloum on the table.
 
 function viewEmployeeDetails() {
     inquirer
@@ -180,6 +180,8 @@ function addEmployee() {
             //let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
             // exe the query
             // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
+           // INSERT INTO `employee_db`.`employee` (`id`, `first_name`, `last_name`, `role_id`, `manager_id`) VALUES ('1', 'Bob', 'Childs', '2', '1');
+
             let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES() ('${answer.first_name}', '${answer.last.name}', '${role}', '3');`;
         });
 }
@@ -371,7 +373,7 @@ function deleteRole() {
 
 // Function to View all Employees =================================================================================
 function viewEmployees() {
-    const sqlViewEmployee = `SELECT * FROM employee`;
+    const sqlViewEmployee = `SELECT id, first_name, last_name FROM employee_db.employee` ;
     connection.query(sqlViewEmployee, (err, res) => {
         if (err) throw err;
         console.table(res);
