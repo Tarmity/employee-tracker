@@ -8,7 +8,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "Boston@29",
+    password: "",
     database: "employee_DB",
 });
 
@@ -135,16 +135,20 @@ function addEmployee() {
     // query the role table
     let roleQuery = `SELECT * FROM employee_db.role;`;
     // exe -- give you a list of roles
+    let roleTitles =[];
     connection.query(roleQuery, function (err, res) {
         for (let i = 0; i < res.length; i++) {
-            let title = res[i].title;
-            function getArray(item) {
-                let jobTitle = [title].join(" ");
-                let newTitle = jobtitle.map(getArray);
-            }
+            roleTitles.push(res[i].title);
+            // function getArray(item) {
+            //     let jobTitle = [title].join(" ");
+            //     console.log(jobTitle)
+            //     let newTitle = jobtitle.map(getArray);
+            // }
             // for each role, grab the title, and turn them into an array (use map function )
         }
+        // console.log(roleTitles)
     });
+    
     //once you have the title array, chuck it down there
 
     inquirer
@@ -163,19 +167,18 @@ function addEmployee() {
                 name: "role",
                 type: "list",
                 message: "What role is the new employee doing?",
-                choices: [
-                    newTitle // need this to be a title Array
-                ],
+                choices: roleTitles
+                   
             },
         ])
 
         .then(function (answer) {
-            const role = answer.role;
+            //const role = answer.role;
             // query for the id of the selected role
-            let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
+            //let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
             // exe the query
             // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
-            let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES ('${answer.first_name}', '${answer.last.name}', '${role}', '3');`
+            let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES() ('${answer.first_name}', '${answer.last.name}', '${role}', '3');`
         });
 }
 
