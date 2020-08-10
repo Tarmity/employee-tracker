@@ -192,6 +192,7 @@ function addEmployee() {
                 connection.query(sqlAddEmployee, [answer.first_name, answer.last.name, answer.role, answer.manager], (err, res) => {
                     if (err) throw err;
                     console.log("SuccessFul!");
+                    viewEmployees()
                     init()
                 })
 
@@ -223,6 +224,7 @@ function addDepartments() {
                 (err, res) => {
                     if (err) throw err;
                     console.log("Successful");
+                    viewDepartments();
                     init();
                 }
             );
@@ -262,6 +264,7 @@ function addRole() {
                 [answer.id, answer.title, answer.salary, answer.department_id], (err, res) => {
                     if (err) throw err;
                     console.log("Successful");
+                    viewRole();
                     init();
                 }
             );
