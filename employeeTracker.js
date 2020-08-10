@@ -370,3 +370,18 @@ function updateRoles() {
             });
         })
 }
+
+async function printAll() {
+    let query = `
+            SELECT employee.id, first_name, last_name, title, salary, name AS department, manager_id FROM employee 
+            LEFT JOIN role 
+            ON employee.role_id = role.id LEFT JOIN department
+            ON department.id = role.department_id
+        `;
+
+    await connection.query(query, function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        init();
+    })
+}
