@@ -95,7 +95,38 @@ function viewEmployeeDetails() {
         });
 }
 
-// Function to add Employee/Company Information 
+// Function to add Employee/Company Information ==================================================
+
+function addInformation() {
+    inquirer
+    .prompt({
+        name: "action",
+        type: "list",
+        message: "Please select where you would like to add new Information",
+        choices: [
+            "Add New Employee",
+            "Add New Department",
+            "Add New Role",
+        ],
+    })
+        .then(function (answer) {
+            switch (answer.action) {
+
+                case "Add New Employee":
+                    addEmployee();
+                    break;
+
+                case "Add New Department":
+                    addDepartments(); //Function Done
+                    break;
+
+                case "Add New Role":
+                    addRole(); //Function Done
+                    break;
+            }
+        });
+
+}
 
 // Function to Add Employee ======================================================================
 function addEmployee() {
