@@ -302,15 +302,39 @@ function deleteEmployee() {
             connection.query(sqlDeleteEmp, [answer.id], (err, res) => {
                 if (err) throw err;
                 console.log("Successfull")
-                init()
+                joinedTables()
             })
         })
 }
 
 // Function to delete Department====================================================================================
 function deleteDepartments() {
-    const sqlDeleteDepart = `DELETE FROM department WHERE id = ?`;
+    // query the Departments table
+    let departQuery = `SELECT * FROM employee_db.department;`
+    // exe -- give you a list of roles
+    let departName = [];
+    connection.query(departQuery, function (err, res){
+        for (let i = 0; i < res.length; i++){
+            departName.push(res[i].name);
+        }
+        console.log(departName)
+    })
 
+    inquirer
+    .prompt({
+        name: "name",
+        type: "list",
+        message: "What department would you like to delete?",
+        choices: departName,
+    })
+    .then(function (answer){
+    const sqlDeleteDepart = `DELETE FROM department WHERE id = ?`;
+    connection.query(sqlDeleteDepart, [answer.name], (err, res) => {
+        if (err) throw err;
+        console.log("Successful!")
+        joinedTables()
+    })
+})
 }
 
 // Function to delete Role =========================================================================================
@@ -330,15 +354,15 @@ function deleteRole() {
 
             name: "title",
             type: "list",
-            message: "What role is the new employee doing?",
+            message: "What role would you like to delete?",
             choices: roleTitles,
         })
         .then(function (answer) {
-            const sqlDelRole = `DELETE FROM role WHERE title = ?`;
+            const sqlDelRole = `DELETE FROM role WHERE id = ?`; //======================================= Not sure How to delete tilte. Need to turn roleTitle into the number to delete the row 
             connection.query(sqlDelRole, [answer.title], (err, res) => {
                 if (err) throw err;
                 console.log("Successfull")
-                init()
+                joinedTables()
             })
         })
 
