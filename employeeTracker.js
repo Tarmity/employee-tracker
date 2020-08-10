@@ -3,6 +3,8 @@ const mysql = require("mysql");
 const inquirer = require("inquirer");
 const fs = require("fs");
 const chalk = require('chalk');
+const logo = require('asciiart-logo');
+const config = require('./package.json');
 
 
 // Establish connection with MySQL ===========================================================
@@ -14,10 +16,23 @@ const connection = mysql.createConnection({
     database: "employee_DB",
 });
 
+console.log(
+    logo({
+        name: 'Employee Tracker',
+        font: 'Speed',
+        lineChars: 18,
+        padding: 2,
+        margin: 3,
+        borderColor: 'bold-white',
+        logoColor: 'bold-blue',
+        textColor: 'green',
+    })
+        .render()
+);
+
 connection.connect((err) => {
     if (err) throw err;
-    console.log("Connected as ID " + connection.threadId);
-    console.log(chalk.bgBlueBright("Employee Tracker"));
+    // console.log("Connected as ID " + connection.threadId);
     init();
 });
 
@@ -373,7 +388,7 @@ function deleteRole() {
                 choices: roleTitles,
             })
             .then(function (answer) {
-                const sqlDelRole = `DELETE FROM role WHERE id = ?`; 
+                const sqlDelRole = `DELETE FROM role WHERE id = ?`;
                 connection.query(sqlDelRole, [answer.title], (err, res) => {
                     if (err) throw err;
                     console.log("Successfull")

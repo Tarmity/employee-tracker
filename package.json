@@ -19,6 +19,7 @@
   "dependencies": {
     "art": "^0.10.3",
     "ascii": "^1.0.0",
+    "asciiart-logo": "^0.2.6",
     "chalk": "^4.1.0",
     "console.table": "^0.10.0",
     "font": "0.0.4",
