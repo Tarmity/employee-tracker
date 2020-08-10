@@ -8,7 +8,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
+    password: "Boston@29",
     database: "employee_DB",
 });
 
@@ -26,7 +26,10 @@ function init() {
             type: "list",
             message: "What would you like to do?",
             choices: [
-                jobTitle
+                "Veiw Employee/Company Details",
+                "Add Employee/Company Information",
+                "Update Employee Roles",
+                "Exit Application",
             ],
         })
 
@@ -161,11 +164,7 @@ function addEmployee() {
                 type: "list",
                 message: "What role is the new employee doing?",
                 choices: [
-                    "General Manager",
-                    "Manager",
-                    "Software Engineer",
-                    "Full Stack Developer",
-                    "Junior Full Stack Developer", // need this to be a title Array
+                    newTitle // need this to be a title Array
                 ],
             },
         ])
