@@ -141,7 +141,7 @@ function addInformation() {
         });
 }
 
-// Function to Add Employee ====================================================================== Not sure how to convert title inot a number / and have it auto add the manger ID 
+// Function to Add Employee ====================================================================== Not sure how to auto add the manger ID 
 function addEmployee() {
     // query the role table
     let roleQuery = `SELECT * FROM employee_db.role;`;
@@ -149,41 +149,39 @@ function addEmployee() {
     let roleTitles = [];
     connection.query(roleQuery, function (err, res) {
         for (let i = 0; i < res.length; i++) {
-            roleTitles.push(res[i].title);
+            roleTitles.push({name: res[i].title, value:res[i].id} );
         }
         // console.log(roleTitles)
+        inquirer
+            .prompt([
+                {
+                    type: "input",
+                    message: "please enter new employee's first name",
+                    name: "first_name",
+                },
+                {
+                    type: "input",
+                    message: "Please Enter new employee's last name",
+                    name: "last_name",
+                },
+                {
+                    name: "role",
+                    type: "list",
+                    message: "What role is the new employee doing?",
+                    choices: roleTitles,
+                },
+            ])
+            .then(function (answer) {
+                //console.log(answer)
+                const sqlAddEmployee = `INSERT INTO employee (first_name, last_name, role_id, manager_id)VALUES(?, ?, ?, ?)`;
+                connection.query(sqlAddEmployee, [answer.first_name, answer.last.name, answer.role, 3], (err, res) => {
+                    if (err) throw err;
+                    console.log("SuccessFul!");
+                    init()
+                })
+                
+            });
     });
-
-    inquirer
-        .prompt([
-            {
-                type: "input",
-                message: "please enter new employee's first name",
-                name: "first_name",
-            },
-            {
-                type: "input",
-                message: "Please Enter new employee's last name",
-                name: "last_name",
-            },
-            {
-                name: "role",
-                type: "list",
-                message: "What role is the new employee doing?",
-                choices: roleTitles,
-            },
-        ])
-
-        .then(function (answer) {
-            //const role = answer.role;
-            // query for the id of the selected role
-            //let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
-            // exe the query
-            // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
-           // INSERT INTO `employee_db`.`employee` (`id`, `first_name`, `last_name`, `role_id`, `manager_id`) VALUES ('1', 'Bob', 'Childs', '2', '1');
-
-            let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES() ('${answer.first_name}', '${answer.last.name}', '${role}', '3');`;
-        });
 }
 
 // // Function to Add Departments =============================================================================
@@ -309,34 +307,33 @@ function deleteEmployee() {
         })
 }
 
-// Function to delete Department============================================================================================Not sure how to convert name into number to delete row
+// Function to delete Department============================================================================================
 function deleteDepartments() {
     // query the Departments table
     let departQuery = `SELECT * FROM employee_db.department;`
     // exe -- give you a list of roles
     let departName = [];
-    connection.query(departQuery, function (err, res){
-        for (let i = 0; i < res.length; i++){
-            departName.push(res[i].name);
+    connection.query(departQuery, function (err, res) {
+        for (let i = 0; i < res.length; i++) {
+            departName.push({name: res[i].name, value: res[i].id});
         }
-        console.log(departName)
-    })
-
-    inquirer
-    .prompt({
-        name: "name",
-        type: "list",
-        message: "What department would you like to delete?",
-        choices: departName,
-    })
-    .then(function (answer){
-    const sqlDeleteDepart = `DELETE FROM department WHERE id = ?`;
-    connection.query(sqlDeleteDepart, [answer.name], (err, res) => {
-        if (err) throw err;
-        console.log("Successful!")
-        joinedTables()
-    })
-})
+        inquirer
+        .prompt({
+            name: "name",
+            type: "list",
+            message: "What department would you like to delete?",
+            choices: departName,
+        })
+        .then(function (answer) {
+            console.log(answer)
+            const sqlDeleteDepart = `DELETE FROM department WHERE id = ?`;
+            connection.query(sqlDeleteDepart, [answer.name], (err, res) => {
+                if (err) throw err;
+                console.log("Successful!")
+                joinedTables()
+            })
+        })
+    }) 
 }
 
 // Function to delete Role =========================================================================================
@@ -373,7 +370,7 @@ function deleteRole() {
 
 // Function to View all Employees =================================================================================
 function viewEmployees() {
-    const sqlViewEmployee = `SELECT id, first_name, last_name FROM employee_db.employee` ;
+    const sqlViewEmployee = `SELECT id, first_name, last_name FROM employee_db.employee`;
     connection.query(sqlViewEmployee, (err, res) => {
         if (err) throw err;
         console.table(res);
