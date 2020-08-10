@@ -59,20 +59,19 @@ function init() {
 
 function viewEmployeeDetails() {
     inquirer
-    .prompt({
-        name: "action",
-        type: "list",
-        message: "Please select what you would like to view",
-        choices: [
-            "View Employees",
-            "View Departments",
-            "View Roles",
-            "Return to main MENU",
-        ],
-    })
+        .prompt({
+            name: "action",
+            type: "list",
+            message: "Please select what you would like to view",
+            choices: [
+                "View Employees",
+                "View Departments",
+                "View Roles",
+                "Return to main MENU",
+            ],
+        })
         .then(function (answer) {
             switch (answer.action) {
-
                 case "View Employees":
                     viewEmployees(); //Function Done
                     break;
@@ -96,20 +95,19 @@ function viewEmployeeDetails() {
 
 function addInformation() {
     inquirer
-    .prompt({
-        name: "action",
-        type: "list",
-        message: "Please select where you would like to add new Information",
-        choices: [
-            "Add New Employee",
-            "Add New Department",
-            "Add New Role",
-            "Return to main MENU",
-        ],
-    })
+        .prompt({
+            name: "action",
+            type: "list",
+            message: "Please select where you would like to add new Information",
+            choices: [
+                "Add New Employee",
+                "Add New Department",
+                "Add New Role",
+                "Return to main MENU",
+            ],
+        })
         .then(function (answer) {
             switch (answer.action) {
-
                 case "Add New Employee":
                     addEmployee();
                     break;
@@ -127,7 +125,6 @@ function addInformation() {
                     break;
             }
         });
-
 }
 
 // Function to Add Employee ======================================================================
@@ -135,21 +132,13 @@ function addEmployee() {
     // query the role table
     let roleQuery = `SELECT * FROM employee_db.role;`;
     // exe -- give you a list of roles
-    let roleTitles =[];
+    let roleTitles = [];
     connection.query(roleQuery, function (err, res) {
         for (let i = 0; i < res.length; i++) {
             roleTitles.push(res[i].title);
-            // function getArray(item) {
-            //     let jobTitle = [title].join(" ");
-            //     console.log(jobTitle)
-            //     let newTitle = jobtitle.map(getArray);
-            // }
-            // for each role, grab the title, and turn them into an array (use map function )
         }
         // console.log(roleTitles)
     });
-    
-    //once you have the title array, chuck it down there
 
     inquirer
         .prompt([
@@ -167,8 +156,7 @@ function addEmployee() {
                 name: "role",
                 type: "list",
                 message: "What role is the new employee doing?",
-                choices: roleTitles
-                   
+                choices: roleTitles,
             },
         ])
 
@@ -178,7 +166,7 @@ function addEmployee() {
             //let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
             // exe the query
             // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
-            let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES() ('${answer.first_name}', '${answer.last.name}', '${role}', '3');`
+            let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES() ('${answer.first_name}', '${answer.last.name}', '${role}', '3');`;
         });
 }
 
@@ -271,7 +259,6 @@ function viewDepartments() {
         init();
     });
 }
-// Function to view by individual Departments
 
 // // Function to View all Roles ===================================================================================
 function viewRole() {
@@ -283,9 +270,27 @@ function viewRole() {
     });
 }
 
-//Function to Veiw by individual roles ==============================================================================
-
 // // Function to Update Employee Roles =============================================================================
-// function updateRoles(){
-
-// }
+function updateRoles() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What is the Employee's ID number",
+                name: "id",
+            },
+            {
+                type: "input",
+                message: "What is the new role ID number?",
+                name: "role_id",
+            },
+        ])
+        .then(function (answer) {
+            const sqlUpdaterole = `UPDATE employee SET role_id = ? WHERE id = ?`;
+            connection.query(sqlUpdaterole, [answer.role_id, answer.id], (err, res) => {
+                if (err) throw err;
+                console.log("Successful!");
+                init();
+            });
+        })
+}
