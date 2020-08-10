@@ -285,7 +285,16 @@ function deleteEmployeeDetails() {
 
 }
 
-// Function to delete Employee
+// Function to delete Employee ====================================================================================
+
+
+// Function to delete Department====================================================================================
+
+
+// Function to delete Role =========================================================================================
+
+
+
 
 // Function to View all Employees =================================================================================
 function viewEmployees() {
