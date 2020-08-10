@@ -75,6 +75,7 @@ function viewEmployeeDetails() {
             "View Employees",
             "View Departments",
             "View Roles",
+            "Return to main MENU",
         ],
     })
         .then(function (answer) {
@@ -90,6 +91,10 @@ function viewEmployeeDetails() {
 
                 case "View Roles":
                     viewRole(); //Function Done
+                    break;
+
+                case "Return to main MENU":
+                    init(); //Function Done
                     break;
             }
         });
@@ -107,6 +112,7 @@ function addInformation() {
             "Add New Employee",
             "Add New Department",
             "Add New Role",
+            "Return to main MENU",
         ],
     })
         .then(function (answer) {
@@ -122,6 +128,10 @@ function addInformation() {
 
                 case "Add New Role":
                     addRole(); //Function Done
+                    break;
+
+                case "Return to main MENU":
+                    init(); //Function Done
                     break;
             }
         });
@@ -172,12 +182,12 @@ function addEmployee() {
         ])
 
         .then(function (answer) {
-            // const role = answer.role;
-            // // query for the id of the selected role
-            // let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
-            // // exe the query
-            // // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
-            // let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES ('${answer.first_name}', '${answer.last.name}', '${role}', '3');`
+            const role = answer.role;
+            // query for the id of the selected role
+            let roleQuery = `SELECT * from \`role\` WHERE \`title\` = ${role}`
+            // exe the query
+            // grab the result, and get the id -- now you have the role id ready to insert to your create employee statement
+            let query = `INSERT INTO \`employee_db\`.\`employee\` (\`first_name\`, \`last_name\`, \`role_id\`, \`manager_id\`) VALUES ('${answer.first_name}', '${answer.last.name}', '${role}', '3');`
         });
 }
 
