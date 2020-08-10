@@ -26,10 +26,7 @@ function init() {
             type: "list",
             message: "What would you like to do?",
             choices: [
-                "Veiw Employee/Company Details",
-                "Add Employee/Company Information",
-                "Update Employee Roles",
-                "Exit Application",
+                jobTitle
             ],
         })
 
@@ -42,14 +39,6 @@ function init() {
 
                 case "Add Employee/Company Information":
                     addInformation();
-                    break;
-
-                case "Add Departments":
-                    addDepartments(); //Function Done
-                    break;
-
-                case "Add Role":
-                    addRole(); //Function Done
                     break;
 
                 case "Update Employee Roles":
