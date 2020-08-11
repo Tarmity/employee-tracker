@@ -222,7 +222,6 @@ function addDepartments() {
                 (err, res) => {
                     if (err) throw err;
                     console.log("Successful");
-                    viewDepartments();
                     init();
                 }
             );
@@ -262,7 +261,6 @@ function addRole() {
                 [answer.id, answer.title, answer.salary, answer.department_id], (err, res) => {
                     if (err) throw err;
                     console.log("Successful");
-                    viewRole();
                     init();
                 }
             );
@@ -317,7 +315,7 @@ function deleteEmployee() {
             connection.query(sqlDeleteEmp, [answer.id], (err, res) => {
                 if (err) throw err;
                 console.log("Successfull")
-                joinedTables()
+                init()
             })
         })
 };
@@ -340,12 +338,12 @@ function deleteDepartments() {
                 choices: departName,
             })
             .then(function (answer) {
-                console.log(answer)
+                // console.log(answer)
                 const sqlDeleteDepart = `DELETE FROM department WHERE id = ?`;
                 connection.query(sqlDeleteDepart, [answer.name], (err, res) => {
                     if (err) throw err;
                     console.log("Successful!")
-                    joinedTables()
+                    init()
                 })
             })
     })
@@ -375,7 +373,7 @@ function deleteRole() {
                 connection.query(sqlDelRole, [answer.title], (err, res) => {
                     if (err) throw err;
                     console.log("Successfull")
-                    joinedTables()
+                    init()
                 })
             })
     });
