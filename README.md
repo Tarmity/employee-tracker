@@ -1,4 +1,4 @@
-# employee-tracker
+# Employee-Tracker
 ![License](https://img.shields.io/github/license/tarmity/employee-tracker)
 
   ## Description
@@ -33,6 +33,6 @@
   * My GitHub profile: https://github.com/tarmity
 
   ## Demonstration 
-  * Watch the video for an example of how the app works: https://
+  * Watch the video for an example of how the app works: https://youtu.be/1xcN9eisoB8
   * You can also download the video from the assets folder
 
