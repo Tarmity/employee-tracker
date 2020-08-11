@@ -12,7 +12,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
+    password: "Boston@29",
     database: "employee_DB",
 });
 
@@ -164,18 +164,8 @@ function addEmployee() {
     let roleTitles = [];
     connection.query(roleQuery, function (err, res) {
         for (let i = 0; i < res.length; i++) {
-            roleTitles.push({ name: res[i].title, value: res[i].id });
-        }
-
-        let mangerQuery = 'SELECT * FROM employee_db.employee;';
-        let emplManager = [];
-        connection.query(mangerQuery, function (err, res) {
-            for (let i = 0; i < res.length; i++) {
-                emplManager.push({ name: res[i].first_name, value: res[i].id });
-            }
-
-        })
-        // console.log(roleTitles)
+            roleTitles.push({name:res[i].title, value:res[i].id});
+        }    
         inquirer
             .prompt([
                 {
@@ -194,25 +184,18 @@ function addEmployee() {
                     message: "What role is the new employee doing?",
                     choices: roleTitles,
                 },
-                {
-                    name: "manager",
-                    type: "list",
-                    message: "Who is the new Employee's Manager?",
-                    choices: emplManager,
-                }
             ])
             .then(function (answer) {
                 //console.log(answer)
                 const sqlAddEmployee = `INSERT INTO employee (first_name, last_name, role_id, manager_id)VALUES(?, ?, ?, ?)`;
-                connection.query(sqlAddEmployee, [answer.first_name, answer.last.name, answer.role, answer.manager], (err, res) => {
+                connection.query(sqlAddEmployee, [answer.first_name, answer.last_name, answer.role, 3], (err, res) => {
                     if (err) throw err;
                     console.log("SuccessFul!");
-                    viewEmployees()
                     init()
                 })
 
             });
-    });
+    });	    
 };
 
 // // Function to Add Departments =============================================================================
