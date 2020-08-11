@@ -21,6 +21,8 @@
 
   ## Usage
   To use the Employee Tracker, download all the files in the repository, open you terminal window and run the the program with th cmd node employeeTracker.js, this will run intiate the program and start asking questions. You will be able to add, view and delete employees, employees role and departments.
+  
+  ![animated gif](https://github.com/Tarmity/employee-tracker/blob/master/assets/EmployTrackGif.gif)
 
   ## License
   * MIT
