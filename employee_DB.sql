@@ -9,7 +9,7 @@ USE employee_DB;
 
 -- Create the table for Department --
 CREATE TABLE department (
-    id INT NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) NOT NULL,
     PRIMARY KEY (id)
 );
@@ -23,7 +23,7 @@ INSERT INTO `department` (`id`,`name`) VALUES (4,'Full Stack Developer');
 
 -- Create the table for employee --
 CREATE TABLE employee (
-      id INT NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
     role_id INT NOT NULL,
@@ -40,7 +40,7 @@ INSERT INTO `employee` (`id`,`first_name`,`last_name`,`role_id`,`manager_id`) VA
 
 -- Create the table for role --
 CREATE TABLE role (
-    id INT NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     title VARCHAR(30) NOT NULL,
     salary DECIMAL(8) NULL,
     department_id INT NOT NULL,

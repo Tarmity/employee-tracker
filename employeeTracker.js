@@ -2,7 +2,6 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const fs = require("fs");
-const chalk = require('chalk');
 const logo = require('asciiart-logo');
 const config = require('./package.json');
 
@@ -74,7 +73,7 @@ function init() {
                     break;
 
                 case "Delete Employee/Company Details":
-                    deleteEmployeeDetails();
+                    deleteEmployeeDetails(); //function Done
                     break;
 
                 case "Exit Application":
@@ -187,14 +186,14 @@ function addEmployee() {
             ])
             .then(function (answer) {
                 //console.log(answer)
-                const sqlAddEmployee = `INSERT INTO employee (first_name, last_name, role_id, manager_id)VALUES(?, ?, ?, ?)`;
-                connection.query(sqlAddEmployee, [answer.first_name, answer.last_name, answer.role, 3], (err, res) => {
+                const sqlAddEmployee = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`;
+                connection.query(sqlAddEmployee, [answer.first_name, answer.last_name, answer.role, 1], (err, res) => {
                     if (err) throw err;
                     console.log("SuccessFul!");
                     init()
                 })
 
-            });
+            }); 
     });	    
 };
 
