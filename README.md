@@ -4,7 +4,8 @@
   ## Description
   * This repository is where I developed the Employee Tracker. Not only do I work on code and issues here. I also publish the latest updates and functions. This source code is avaialable to everyone under the Free Software Foundation, Inc. http//fsf.org/.
   
-  ![img](https://github.com/Tarmity/burger/blob/master/public/assets/img/landingPage.png)
+  ![img](./assets/employeeTracker.png)
+  
 
   ## Table of Contents
   * [Installation](#installation)
