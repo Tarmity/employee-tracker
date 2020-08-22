@@ -37,5 +37,5 @@
 
   ## Demonstration 
   * Watch the video for an example of how the app works: https://youtu.be/1xcN9eisoB8
-  * You can also download the video from the assets folder
+  * You can also download the video from the assets folder!
 
